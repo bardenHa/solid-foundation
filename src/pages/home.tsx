@@ -1,30 +1,20 @@
-import { createSignal } from "solid-js";
-import { Button, Container } from "@hope-ui/solid";
+import { createSignal } from 'solid-js';
+import { Button, HStack, Heading, VStack, Text } from '@hope-ui/solid';
 
 export default function Home() {
   const [count, setCount] = createSignal(0);
 
   return (
-    <Container>
-      <h1 class="text-2xl font-bold">Home</h1>
-      <p class="mt-4">This is the home page.</p>
-
-      <div class="flex items-center space-x-2">
-        <Button
-          class="border rounded-lg px-2 border-gray-900"
-          onClick={() => setCount(count() - 1)}
-        >
-          -
+    <VStack spacing={'$3'}>
+      <Heading as={'h2'}>Home</Heading>
+      <Text>This is the home page.</Text>
+      <HStack spacing={'$3'}>
+        <Button variant={'subtle'} onClick={() => setCount(count() - 1)}>
+          Decrement
         </Button>
-        <output class="p-10px">Count: {count()}</output>
-
-        <Button
-          class="border rounded-lg px-2 border-gray-900"
-          onClick={() => setCount(count() + 1)}
-        >
-          +
-        </Button>
-      </div>
-    </Container>
+        <output>Count: {count()}</output>
+        <Button onClick={() => setCount(count() + 1)}>Increment</Button>
+      </HStack>
+    </VStack>
   );
 }

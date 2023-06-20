@@ -1,20 +1,34 @@
-import { Box, Container } from '@hope-ui/solid'
-import { ParentComponent } from 'solid-js'
+import { Box, Button, Container, Flex, Heading, useColorMode } from '@hope-ui/solid';
+import { ParentComponent } from 'solid-js';
 
-export const FullLayout: ParentComponent = ({ children }) => {
+export const FullLayout: ParentComponent = props => {
   return (
-    <Box d="flex" flexDirection={'column'} class="flex flex-col min-h-screen h-screen overflow-hidden bg-slate-50">
-      <header class="text-slate-700 border-b border-slate-200">
-        <Container p="$3">
-          <h1 class="text-2xl font-bold">SolidJS</h1>
-        </Container>
-      </header>
-      <main class="flex-1">{children}</main>
-      <footer class="text-slate-700 border-t border-slate-200">
-        <Container>
-          <p>Footer</p>
-        </Container>
-      </footer>
+    <Box
+      as="section"
+      d={'flex'}
+      flexDirection={'column'}
+      minH={'$screenH'}
+      h={'$screenH'}
+      overflow={'hidden'}
+      bg={'$neutral1'}
+    >
+      <Container as={'header'} p={'$5'} borderColor={'$neutral5'} borderBottomWidth={'thin'}>
+        <Flex alignItems={'center'} justifyContent={'space-between'}>
+          <Heading as={'h1'}>Header</Heading>
+          <ColorModeSwitcher />
+        </Flex>
+      </Container>
+      <Container as={'main'} p={'$5'} flex={1}>
+        {props.children}
+      </Container>
+      <Container as={'footer'} p={'$5'} borderColor={'$neutral5'} borderTopWidth={'thin'}>
+        <p>Footer</p>
+      </Container>
     </Box>
-  )
+  );
+};
+
+function ColorModeSwitcher() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return <Button onClick={toggleColorMode}>Toggle {colorMode() === 'light' ? 'dark' : 'light'}</Button>;
 }
